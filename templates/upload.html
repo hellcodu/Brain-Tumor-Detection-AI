@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Detection | BrainTumor AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-slate-50 text-slate-800">
+
+
+<!-- NAVBAR -->
+
+<nav class="bg-white shadow-sm">
+
+    <div class="max-w-7xl mx-auto px-6 py-4
+                flex justify-between items-center">
+
+        <a href="home.html"
+           class="text-2xl font-bold text-blue-600">
+
+            🧠 BrainTumor AI
+
+        </a>
+
+        <a href="patient_dashboard.html"
+           class="text-blue-600 font-medium">
+
+            Dashboard →
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main class="max-w-5xl mx-auto px-6 py-12">
+
+
+    <div class="text-center">
+
+        <p class="text-blue-600 font-semibold">
+            AI DETECTION
+        </p>
+
+        <h1 class="text-4xl font-bold mt-2">
+            Upload Brain MRI
+        </h1>
+
+        <p class="text-slate-500 mt-3">
+            Upload a supported MRI image for AI-assisted analysis.
+        </p>
+
+    </div>
+
+
+    <!-- UPLOAD CARD -->
+
+    <div class="bg-white rounded-3xl shadow-sm border
+                p-8 md:p-12 mt-10">
+
+
+        <form action="/predict"
+              method="POST"
+              enctype="multipart/form-data">
+
+
+            <label for="mri"
+                   class="border-2 border-dashed
+                          border-slate-300 rounded-2xl
+                          min-h-[280px]
+                          flex flex-col items-center
+                          justify-center cursor-pointer
+                          hover:border-blue-500
+                          hover:bg-blue-50/30">
+
+
+                <div class="text-6xl">
+                    📤
+                </div>
+
+                <h2 class="text-xl font-bold mt-5">
+                    Upload MRI Image
+                </h2>
+
+                <p class="text-slate-500 mt-2 text-center">
+                    Click to select an image
+                </p>
+
+                <p class="text-sm text-slate-400 mt-2">
+                    JPG, JPEG or PNG
+                </p>
+
+
+                <input
+                    id="mri"
+                    name="mri"
+                    type="file"
+                    accept=".jpg,.jpeg,.png"
+                    required
+                    class="hidden">
+
+            </label>
+
+
+            <!-- PREVIEW -->
+
+            <div id="previewContainer"
+                 class="hidden mt-8">
+
+                <h3 class="font-semibold">
+                    Image Preview
+                </h3>
+
+                <img id="preview"
+                     class="mt-4 max-h-80 mx-auto
+                            rounded-xl shadow">
+
+            </div>
+
+
+            <!-- INFO -->
+
+            <div class="grid md:grid-cols-3 gap-4 mt-8">
+
+                <div class="bg-slate-50 p-5 rounded-xl">
+
+                    <p class="font-semibold">
+                        🧠 Model
+                    </p>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        ResNet50 Transfer Learning
+                    </p>
+
+                </div>
+
+
+                <div class="bg-slate-50 p-5 rounded-xl">
+
+                    <p class="font-semibold">
+                        🔥 Explainability
+                    </p>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Grad-CAM visualization
+                    </p>
+
+                </div>
+
+
+                <div class="bg-slate-50 p-5 rounded-xl">
+
+                    <p class="font-semibold">
+                        📄 Report
+                    </p>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        PDF report generation
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <button
+                type="submit"
+                class="w-full mt-8 bg-blue-600
+                       text-white py-4 rounded-xl
+                       font-semibold text-lg
+                       hover:bg-blue-700">
+
+                Analyze MRI →
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+    <!-- DISCLAIMER -->
+
+    <div class="bg-amber-50 border border-amber-200
+                rounded-2xl p-5 mt-8">
+
+        <p class="text-sm text-amber-700">
+
+            ⚠️ <strong>Important:</strong>
+            This AI system provides an experimental,
+            educational prediction. It is not a medical diagnosis.
+            Always consult a qualified healthcare professional.
+
+        </p>
+
+    </div>
+
+</main>
+
+
+<!-- PREVIEW SCRIPT -->
+
+<script>
+
+const input = document.getElementById("mri");
+
+const preview = document.getElementById("preview");
+
+const container = document.getElementById("previewContainer");
+
+
+input.addEventListener("change", function(){
+
+    const file = this.files[0];
+
+    if(file){
+
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+
+            preview.src = e.target.result;
+
+            container.classList.remove("hidden");
+
+        }
+
+        reader.readAsDataURL(file);
+
+    }
+
+});
+
+</script>
+
+
+</body>
+</html>

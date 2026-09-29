@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0"
+    >
+
+    <title>
+        Doctor Dashboard | BrainScan AI
+    </title>
+
+    <script
+        src="https://cdn.tailwindcss.com">
+    </script>
+
+</head>
+
+
+<body class="bg-slate-100">
+
+
+<!-- NAVBAR -->
+
+<header class="bg-white border-b">
+
+    <div
+        class="max-w-7xl mx-auto
+               px-5 py-4
+               flex justify-between
+               items-center"
+    >
+
+        <a
+            href="/"
+            class="text-2xl
+                   font-bold
+                   text-blue-600"
+        >
+
+            🧠 BrainScan AI
+
+        </a>
+
+
+        <div class="flex items-center gap-4">
+
+            <span
+                class="hidden sm:block
+                       text-slate-600"
+            >
+
+                Dr. {{ user.name }}
+
+            </span>
+
+
+            <a
+                href="/logout"
+                class="text-red-600"
+            >
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main
+    class="max-w-7xl mx-auto
+           px-5 py-8"
+>
+
+
+    <!-- HEADER -->
+
+    <div class="mb-8">
+
+        <p
+            class="text-blue-600
+                   font-semibold"
+        >
+
+            DOCTOR PORTAL
+
+        </p>
+
+
+        <h1
+            class="text-3xl
+                   md:text-4xl
+                   font-bold
+                   mt-2"
+        >
+
+            Doctor Dashboard
+
+        </h1>
+
+
+        <p
+            class="text-slate-500
+                   mt-2"
+        >
+
+            Review AI-assisted MRI reports
+            and provide professional comments.
+
+        </p>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div
+        class="grid
+               grid-cols-1
+               sm:grid-cols-3
+               gap-5
+               mb-8"
+    >
+
+
+        <div
+            class="bg-white
+                   rounded-2xl
+                   border
+                   p-6"
+        >
+
+            <p class="text-slate-500">
+
+                Total Reports
+
+            </p>
+
+            <p
+                class="text-3xl
+                       font-bold
+                       mt-2"
+            >
+
+                {{ reports|length }}
+
+            </p>
+
+        </div>
+
+
+        <div
+            class="bg-white
+                   rounded-2xl
+                   border
+                   p-6"
+        >
+
+            <p class="text-slate-500">
+
+                Pending Review
+
+            </p>
+
+            <p
+                class="text-3xl
+                       font-bold
+                       mt-2"
+            >
+
+                {{ pending_count }}
+
+            </p>
+
+        </div>
+
+
+        <div
+            class="bg-white
+                   rounded-2xl
+                   border
+                   p-6"
+        >
+
+            <p class="text-slate-500">
+
+                Reviewed
+
+            </p>
+
+            <p
+                class="text-3xl
+                       font-bold
+                       mt-2"
+            >
+
+                {{ reviewed_count }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- REPORTS -->
+
+    <div
+        class="bg-white
+               border
+               rounded-2xl
+               overflow-hidden"
+    >
+
+        <div class="p-6 border-b">
+
+            <h2
+                class="text-xl
+                       font-bold"
+            >
+
+                Patient Reports
+
+            </h2>
+
+        </div>
+
+
+        {% if reports %}
+
+
+        <div class="divide-y">
+
+
+            {% for report in reports %}
+
+
+            <div
+                class="p-5
+                       flex
+                       flex-col
+                       lg:flex-row
+                       lg:items-center
+                       lg:justify-between
+                       gap-5"
+            >
+
+
+                <!-- PATIENT -->
+
+                <div
+                    class="flex
+                           items-center
+                           gap-4"
+                >
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='uploads/'
+                            + report.image
+                        ) }}"
+                        class="w-16 h-16
+                               object-cover
+                               rounded-xl"
+                    >
+
+
+                    <div>
+
+                        <h3
+                            class="font-bold"
+                        >
+
+                            {{ report.patient_name }}
+
+                        </h3>
+
+
+                        <p
+                            class="text-sm
+                                  text-slate-500"
+                        >
+
+                            Report #{{ report.id }}
+
+                        </p>
+
+
+                        <p
+                            class="text-sm
+                                  text-slate-500"
+                        >
+
+                            Prediction:
+
+                            <strong>
+
+                                {{ report.prediction }}
+
+                            </strong>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div>
+
+                    <p
+                        class="font-semibold"
+                    >
+
+                        Confidence:
+                        {{ "%.2f"|format(
+                            report.confidence
+                        ) }}%
+
+                    </p>
+
+
+                    {% if report.review_status
+                       == "Reviewed" %}
+
+                    <span
+                        class="inline-block
+                               bg-green-100
+                               text-green-700
+                               px-3 py-1
+                               rounded-full
+                               text-sm
+                               mt-2"
+                    >
+
+                        ✓ Reviewed
+
+                    </span>
+
+                    {% else %}
+
+                    <span
+                        class="inline-block
+                               bg-yellow-100
+                               text-yellow-700
+                               px-3 py-1
+                               rounded-full
+                               text-sm
+                               mt-2"
+                    >
+
+                        ⏳ Pending
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div
+                    class="flex
+                           flex-wrap
+                           gap-2"
+                >
+
+                    <a
+                        href="/doctor/review/{{ report.id }}"
+                        class="bg-blue-600
+                               text-white
+                               px-4 py-2
+                               rounded-lg"
+                    >
+
+                        Review
+
+                    </a>
+
+
+                    <a
+                        href="/download-report/{{ report.id }}"
+                        class="border
+                               px-4 py-2
+                               rounded-lg"
+                    >
+
+                        PDF
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <div
+            class="p-12
+                   text-center
+                   text-slate-500"
+        >
+
+            No patient reports available.
+
+        </div>
+
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- DISCLAIMER -->
+
+    <div
+        class="bg-amber-50
+               border
+               border-amber-200
+               rounded-2xl
+               p-5
+               mt-8"
+    >
+
+        <p
+            class="text-sm
+                   text-amber-700"
+        >
+
+            ⚠️ AI predictions are decision-support
+            information and should not replace
+            professional clinical assessment.
+
+        </p>
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

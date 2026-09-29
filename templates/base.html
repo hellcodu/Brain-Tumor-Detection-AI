@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainScan AI | Brain Tumor Detection</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#0f766e'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        <a href="home.html" class="text-2xl font-bold text-blue-600">
+            🧠 BrainScan AI
+        </a>
+
+        <div class="hidden md:flex items-center gap-7">
+            <a href="home.html" class="text-blue-600 font-medium">Home</a>
+            <a href="about.html" class="hover:text-blue-600">About</a>
+            <a href="upload.html" class="hover:text-blue-600">Detection</a>
+            <a href="ai_assistant.html" class="hover:text-blue-600">AI Assistant</a>
+            <a href="contact.html" class="hover:text-blue-600">Contact</a>
+
+            <a href="login.html"
+               class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
+                Login
+            </a>
+        </div>
+
+        <button class="md:hidden text-2xl">
+            ☰
+        </button>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="bg-gradient-to-br from-blue-700 via-blue-600 to-teal-600 text-white">
+
+    <div class="max-w-7xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-12 items-center">
+
+        <div>
+            <span class="bg-white/20 px-4 py-2 rounded-full text-sm">
+                AI-Powered Medical Imaging
+            </span>
+
+            <h1 class="text-4xl md:text-6xl font-bold mt-6 leading-tight">
+                Brain Tumor Detection Using AI
+            </h1>
+
+            <p class="text-lg md:text-xl text-blue-100 mt-6">
+                Analyze brain MRI images using ResNet50 transfer learning,
+                explain predictions with Grad-CAM, and generate detailed reports.
+            </p>
+
+            <div class="flex flex-wrap gap-4 mt-8">
+                <a href="upload.html"
+                   class="bg-white text-blue-700 px-7 py-3 rounded-xl font-semibold hover:bg-slate-100">
+                    Upload MRI →
+                </a>
+
+                <a href="about.html"
+                   class="border border-white px-7 py-3 rounded-xl font-semibold hover:bg-white/10">
+                    Learn More
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
+
+            <div class="bg-white rounded-2xl p-5 text-slate-800">
+
+                <div class="flex justify-between">
+                    <span class="font-semibold">AI Analysis</span>
+                    <span class="text-green-600">● Complete</span>
+                </div>
+
+                <div class="mt-6 bg-slate-100 rounded-xl h-48 flex items-center justify-center">
+                    <span class="text-7xl">🧠</span>
+                </div>
+
+                <div class="mt-5">
+                    <p class="text-sm text-slate-500">Prediction</p>
+                    <p class="text-xl font-bold">Example Result</p>
+                </div>
+
+                <div class="mt-4">
+                    <div class="flex justify-between text-sm">
+                        <span>Confidence</span>
+                        <span>97.8%</span>
+                    </div>
+
+                    <div class="h-2 bg-slate-200 rounded-full mt-2">
+                        <div class="h-2 bg-blue-600 rounded-full w-[98%]"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- FEATURES -->
+<section class="py-20">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="text-center max-w-2xl mx-auto">
+            <p class="text-blue-600 font-semibold">FEATURES</p>
+
+            <h2 class="text-3xl md:text-4xl font-bold mt-2">
+                Complete AI Detection Platform
+            </h2>
+
+            <p class="text-slate-500 mt-4">
+                A complete system for MRI analysis, explainable AI,
+                reporting and educational assistance.
+            </p>
+        </div>
+
+
+        <div class="grid md:grid-cols-3 gap-6 mt-12">
+
+            <div class="bg-white p-7 rounded-2xl shadow-sm border">
+                <div class="text-4xl">🧠</div>
+                <h3 class="text-xl font-bold mt-4">ResNet50 AI</h3>
+                <p class="text-slate-500 mt-2">
+                    Transfer learning model for MRI image classification.
+                </p>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl shadow-sm border">
+                <div class="text-4xl">🔥</div>
+                <h3 class="text-xl font-bold mt-4">Grad-CAM</h3>
+                <p class="text-slate-500 mt-2">
+                    Visualize the regions that influenced the AI prediction.
+                </p>
+            </div>
+
+            <div class="bg-white p-7 rounded-2xl shadow-sm border">
+                <div class="text-4xl">🤖</div>
+                <h3 class="text-xl font-bold mt-4">AI Assistant</h3>
+                <p class="text-slate-500 mt-2">
+                    Ask questions and understand reports and brain diseases.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="py-20 bg-slate-100">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+        <h2 class="text-3xl font-bold text-center">
+            How It Works
+        </h2>
+
+        <div class="grid md:grid-cols-5 gap-5 mt-12">
+
+            <div class="bg-white p-6 rounded-xl text-center">
+                <div class="text-3xl">📤</div>
+                <h3 class="font-bold mt-3">Upload</h3>
+                <p class="text-sm text-slate-500 mt-2">Upload MRI image.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl text-center">
+                <div class="text-3xl">⚙️</div>
+                <h3 class="font-bold mt-3">Process</h3>
+                <p class="text-sm text-slate-500 mt-2">Image preprocessing.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl text-center">
+                <div class="text-3xl">🧠</div>
+                <h3 class="font-bold mt-3">Predict</h3>
+                <p class="text-sm text-slate-500 mt-2">ResNet50 analysis.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl text-center">
+                <div class="text-3xl">🔥</div>
+                <h3 class="font-bold mt-3">Explain</h3>
+                <p class="text-sm text-slate-500 mt-2">Grad-CAM visualization.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl text-center">
+                <div class="text-3xl">📄</div>
+                <h3 class="font-bold mt-3">Report</h3>
+                <p class="text-sm text-slate-500 mt-2">Generate PDF report.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- DISCLAIMER -->
+<section class="py-10">
+
+    <div class="max-w-5xl mx-auto px-6">
+
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+            <h3 class="font-bold text-amber-800">
+                ⚠️ Important Medical Disclaimer
+            </h3>
+
+            <p class="text-amber-700 text-sm mt-2">
+                BrainScan AI is an educational and AI-assisted decision-support
+                system. Its predictions should not be considered a medical
+                diagnosis or a substitute for evaluation by a qualified
+                healthcare professional.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-300">
+
+    <div class="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8">
+
+        <div>
+            <h3 class="text-xl font-bold text-white">🧠 BrainScan AI</h3>
+            <p class="text-sm mt-3">
+                AI-assisted brain MRI analysis and educational support.
+            </p>
+        </div>
+
+        <div>
+            <h4 class="font-semibold text-white">Platform</h4>
+            <div class="space-y-2 mt-3 text-sm">
+                <a href="upload.html" class="block hover:text-white">Detection</a>
+                <a href="ai_assistant.html" class="block hover:text-white">AI Assistant</a>
+                <a href="reports.html" class="block hover:text-white">Reports</a>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="font-semibold text-white">Information</h4>
+            <div class="space-y-2 mt-3 text-sm">
+                <a href="about.html" class="block hover:text-white">About</a>
+                <a href="contact.html" class="block hover:text-white">Contact</a>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="font-semibold text-white">Account</h4>
+            <div class="space-y-2 mt-3 text-sm">
+                <a href="login.html" class="block hover:text-white">Login</a>
+                <a href="register.html" class="block hover:text-white">Register</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="border-t border-slate-700 text-center py-5 text-sm">
+        © 2026 BrainScan AI. All rights reserved.
+    </div>
+
+</footer>
+
+</body>
+</html>

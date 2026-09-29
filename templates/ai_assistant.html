@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Assistant | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-slate-100">
+
+
+<header class="bg-white border-b">
+
+    <div class="max-w-5xl mx-auto px-6 py-4">
+
+        <a href="/"
+           class="text-2xl font-bold text-blue-600">
+
+            🧠 BrainScan AI
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="max-w-4xl mx-auto px-4 py-8">
+
+
+    <div class="bg-white border
+                rounded-2xl overflow-hidden">
+
+
+        <!-- HEADER -->
+
+        <div class="bg-blue-600
+                    text-white p-6">
+
+            <h1 class="text-2xl font-bold">
+
+                🤖 BrainScan AI Assistant
+
+            </h1>
+
+            <p class="text-blue-100 mt-2">
+
+                Ask questions about your AI report.
+
+            </p>
+
+        </div>
+
+
+        <!-- CHAT -->
+
+        <div
+            id="chatBox"
+            class="h-[450px]
+                   overflow-y-auto
+                   p-6 space-y-4">
+
+
+            <div class="flex">
+
+                <div class="bg-slate-100
+                            rounded-2xl
+                            px-5 py-3
+                            max-w-[80%]">
+
+                    Hello! 👋
+
+                    <br><br>
+
+                    I can explain:
+
+                    <ul class="list-disc ml-5 mt-2">
+
+                        <li>Your AI report</li>
+
+                        <li>Brain tumor types</li>
+
+                        <li>Confidence scores</li>
+
+                        <li>Grad-CAM heatmaps</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INPUT -->
+
+        <div class="border-t p-4">
+
+            <div class="flex gap-3">
+
+
+                <input
+                    id="messageInput"
+                    type="text"
+                    placeholder="Ask about your report..."
+                    class="flex-1 border
+                           rounded-xl px-4 py-3
+                           outline-none
+                           focus:ring-2
+                           focus:ring-blue-500">
+
+
+                <button
+                    onclick="sendMessage()"
+                    class="bg-blue-600
+                           text-white
+                           px-6
+                           rounded-xl
+                           font-semibold">
+
+                    Send
+
+                </button>
+
+            </div>
+
+
+            <p class="text-xs
+                      text-slate-400 mt-3">
+
+                AI explanations are educational
+                and are not medical diagnoses.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const chatBox =
+        document.getElementById(
+            "chatBox"
+        );
+
+
+    const message =
+        input.value.trim();
+
+
+    if (!message) {
+
+        return;
+
+    }
+
+
+    // USER MESSAGE
+
+    chatBox.innerHTML += `
+
+        <div class="flex justify-end">
+
+            <div class="bg-blue-600
+                        text-white
+                        rounded-2xl
+                        px-5 py-3
+                        max-w-[80%]">
+
+                ${escapeHtml(message)}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    input.value = "";
+
+
+    // LOADING
+
+    chatBox.innerHTML += `
+
+        <div id="loading"
+             class="flex">
+
+            <div class="bg-slate-100
+                        rounded-2xl
+                        px-5 py-3">
+
+                Thinking... 🤔
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/ai-chat",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        document
+            .getElementById("loading")
+            .remove();
+
+
+        chatBox.innerHTML += `
+
+            <div class="flex">
+
+                <div class="bg-slate-100
+                            rounded-2xl
+                            px-5 py-3
+                            max-w-[80%]">
+
+                    ${escapeHtml(
+                        data.reply
+                    )}
+
+                </div>
+
+            </div>
+
+        `;
+
+
+    } catch (error) {
+
+        document
+            .getElementById("loading")
+            .remove();
+
+
+        chatBox.innerHTML += `
+
+            <div class="text-red-500">
+
+                Unable to contact AI assistant.
+
+            </div>
+
+        `;
+
+    }
+
+
+    chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+}
+
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+document
+    .getElementById("messageInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

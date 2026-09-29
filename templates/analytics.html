@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body class="bg-slate-100 text-slate-800">
+
+
+<header class="bg-white border-b">
+
+    <div class="max-w-7xl mx-auto px-6 py-4
+                flex justify-between items-center">
+
+        <a href="home.html"
+           class="text-2xl font-bold text-blue-600">
+
+            🧠 BrainScan AI
+
+        </a>
+
+        <a href="doctor_dashboard.html"
+           class="text-blue-600">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+
+
+    <p class="text-blue-600 font-semibold">
+        ANALYTICS
+    </p>
+
+    <h1 class="text-3xl font-bold mt-1">
+        AI & System Analytics
+    </h1>
+
+    <p class="text-slate-500 mt-2">
+        Monitor scans, predictions and system activity.
+    </p>
+
+
+    <!-- STATS -->
+
+    <div class="grid sm:grid-cols-2
+                lg:grid-cols-4 gap-5 mt-8">
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500">
+                Total Scans
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_scans or 1250 }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500">
+                Glioma
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ glioma_count or 320 }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500">
+                Meningioma
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ meningioma_count or 290 }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500">
+                No Tumor
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ no_tumor_count or 400 }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHARTS -->
+
+    <div class="grid lg:grid-cols-2 gap-6 mt-8">
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <h2 class="font-bold text-lg">
+                Tumor Distribution
+            </h2>
+
+            <div class="mt-6">
+                <canvas id="tumorChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <h2 class="font-bold text-lg">
+                Monthly Scans
+            </h2>
+
+            <div class="mt-6">
+                <canvas id="scanChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODEL PERFORMANCE -->
+
+    <section class="bg-white border rounded-2xl
+                    p-7 mt-6">
+
+        <h2 class="text-xl font-bold">
+            Model Performance
+        </h2>
+
+
+        <div class="grid md:grid-cols-4 gap-5 mt-6">
+
+
+            <div class="bg-blue-50 rounded-xl p-5">
+
+                <p>Accuracy</p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ accuracy or "97.8" }}%
+                </p>
+
+            </div>
+
+
+            <div class="bg-green-50 rounded-xl p-5">
+
+                <p>Precision</p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ precision or "96.9" }}%
+                </p>
+
+            </div>
+
+
+            <div class="bg-purple-50 rounded-xl p-5">
+
+                <p>Recall</p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ recall or "97.1" }}%
+                </p>
+
+            </div>
+
+
+            <div class="bg-orange-50 rounded-xl p-5">
+
+                <p>F1 Score</p>
+
+                <p class="text-3xl font-bold mt-2">
+                    {{ f1_score or "97.0" }}%
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const tumorChart =
+document.getElementById("tumorChart");
+
+
+new Chart(tumorChart, {
+
+    type: "doughnut",
+
+    data: {
+
+        labels: [
+            "Glioma",
+            "Meningioma",
+            "Pituitary",
+            "No Tumor"
+        ],
+
+        datasets: [{
+
+            data: [
+                {{ glioma_count or 320 }},
+                {{ meningioma_count or 290 }},
+                {{ pituitary_count or 240 }},
+                {{ no_tumor_count or 400 }}
+            ]
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+                position: "bottom"
+            }
+
+        }
+
+    }
+
+});
+
+
+const scanChart =
+document.getElementById("scanChart");
+
+
+new Chart(scanChart, {
+
+    type: "line",
+
+    data: {
+
+        labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun"
+        ],
+
+        datasets: [{
+
+            label: "MRI Scans",
+
+            data: [
+                120,
+                180,
+                210,
+                190,
+                250,
+                300
+            ],
+
+            tension: 0.4
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+                beginAtZero: true
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

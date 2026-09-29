@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0"
+    >
+
+    <title>
+        Review Report | BrainScan AI
+    </title>
+
+    <script
+        src="https://cdn.tailwindcss.com">
+    </script>
+
+</head>
+
+
+<body class="bg-slate-100">
+
+
+<header class="bg-white border-b">
+
+    <div
+        class="max-w-6xl mx-auto
+               px-5 py-4
+               flex justify-between"
+    >
+
+        <a
+            href="/doctor-dashboard"
+            class="text-2xl
+                   font-bold
+                   text-blue-600"
+        >
+
+            🧠 BrainScan AI
+
+        </a>
+
+
+        <a
+            href="/doctor-dashboard"
+            class="text-blue-600"
+        >
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main
+    class="max-w-6xl mx-auto
+           px-5 py-8"
+>
+
+
+    <h1
+        class="text-3xl
+               font-bold"
+    >
+
+        Review MRI Report
+
+    </h1>
+
+
+    <p
+        class="text-slate-500
+              mt-2"
+    >
+
+        Patient: {{ patient.name }}
+
+    </p>
+
+
+    <!-- MRI + GRAD-CAM -->
+
+    <div
+        class="grid
+               md:grid-cols-2
+               gap-6
+               mt-8"
+    >
+
+
+        <div
+            class="bg-white
+                   border
+                   rounded-2xl
+                   p-5"
+        >
+
+            <h2
+                class="font-bold
+                       text-lg"
+            >
+
+                Original MRI
+
+            </h2>
+
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='uploads/'
+                    + report.image
+                ) }}"
+                class="w-full
+                       rounded-xl
+                       mt-4"
+            >
+
+        </div>
+
+
+        <div
+            class="bg-white
+                   border
+                   rounded-2xl
+                   p-5"
+        >
+
+            <h2
+                class="font-bold
+                       text-lg"
+            >
+
+                Grad-CAM
+
+            </h2>
+
+
+            {% if report.gradcam %}
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='results/'
+                    + report.gradcam
+                ) }}"
+                class="w-full
+                       rounded-xl
+                       mt-4"
+            >
+
+            {% else %}
+
+            <p
+                class="text-slate-500
+                      mt-5"
+            >
+
+                Grad-CAM unavailable.
+
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- AI RESULT -->
+
+    <div
+        class="bg-white
+               border
+               rounded-2xl
+               p-6
+               mt-6"
+    >
+
+        <h2
+            class="text-xl
+                   font-bold"
+        >
+
+            AI Analysis
+
+        </h2>
+
+
+        <div
+            class="grid
+                   sm:grid-cols-2
+                   gap-4
+                   mt-5"
+        >
+
+            <div
+                class="bg-slate-50
+                       rounded-xl
+                       p-4"
+            >
+
+                <p
+                    class="text-slate-500"
+                >
+
+                    Prediction
+
+                </p>
+
+
+                <p
+                    class="text-xl
+                           font-bold
+                           mt-1"
+                >
+
+                    {{ report.prediction }}
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="bg-slate-50
+                       rounded-xl
+                       p-4"
+            >
+
+                <p
+                    class="text-slate-500"
+                >
+
+                    Confidence
+
+                </p>
+
+
+                <p
+                    class="text-xl
+                           font-bold
+                           mt-1"
+                >
+
+                    {{ "%.2f"|format(
+                        report.confidence
+                    ) }}%
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REVIEW FORM -->
+
+    <form
+        action="/doctor/review/{{ report.id }}"
+        method="POST"
+        class="bg-white
+               border
+               rounded-2xl
+               p-6
+               mt-6"
+    >
+
+        <h2
+            class="text-xl
+                   font-bold"
+        >
+
+            Doctor Review
+
+        </h2>
+
+
+        <label
+            class="block
+                   font-semibold
+                   mt-5"
+        >
+
+            Review Status
+
+        </label>
+
+
+        <select
+            name="review_status"
+            class="w-full
+                   border
+                   rounded-xl
+                   px-4 py-3
+                   mt-2"
+        >
+
+            <option value="Pending">
+
+                Pending
+
+            </option>
+
+
+            <option value="Reviewed">
+
+                Reviewed
+
+            </option>
+
+        </select>
+
+
+        <label
+            class="block
+                   font-semibold
+                   mt-5"
+        >
+
+            Doctor Comment
+
+        </label>
+
+
+        <textarea
+            name="doctor_comment"
+            rows="6"
+            placeholder="Enter professional review..."
+            class="w-full
+                   border
+                   rounded-xl
+                   px-4 py-3
+                   mt-2"
+        >{{ report.doctor_comment or "" }}</textarea>
+
+
+        <button
+            type="submit"
+            class="w-full
+                   bg-blue-600
+                   hover:bg-blue-700
+                   text-white
+                   py-3
+                   rounded-xl
+                   font-semibold
+                   mt-5"
+        >
+
+            Save Review
+
+        </button>
+
+    </form>
+
+
+</main>
+
+</body>
+
+</html>

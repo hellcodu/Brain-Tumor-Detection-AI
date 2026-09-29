@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-700 text-white shadow-lg">
+
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+            <a href="{{ url_for('home') }}"
+               class="text-2xl font-bold">
+                BrainScan AI
+            </a>
+
+            <div class="space-x-4">
+
+                <a href="{{ url_for('home') }}"
+                   class="hover:text-blue-200">
+                    Home
+                </a>
+
+                <a href="{{ url_for('about') }}"
+                   class="hover:text-blue-200">
+                    About
+                </a>
+
+                <a href="{{ url_for('contact') }}"
+                   class="hover:text-blue-200">
+                    Contact
+                </a>
+
+                {% if session.get('user_id') %}
+
+                    <a href="{{ url_for('patient_dashboard') }}"
+                       class="hover:text-blue-200">
+                        Dashboard
+                    </a>
+
+                    <a href="{{ url_for('logout') }}"
+                       class="bg-white text-blue-700 px-4 py-2 rounded-lg">
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="{{ url_for('login') }}"
+                       class="hover:text-blue-200">
+                        Login
+                    </a>
+
+                    <a href="{{ url_for('register') }}"
+                       class="bg-white text-blue-700 px-4 py-2 rounded-lg">
+                        Register
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white">
+
+        <div class="max-w-7xl mx-auto px-6 py-24 text-center">
+
+            <h1 class="text-5xl font-bold mb-6">
+                Brain MRI Analysis with AI
+            </h1>
+
+            <p class="text-xl max-w-3xl mx-auto mb-8">
+                BrainScan AI is an educational system that analyzes
+                brain MRI images using a machine-learning model and
+                provides an easy-to-understand report.
+            </p>
+
+            {% if session.get('user_id') %}
+
+                <a href="{{ url_for('upload') }}"
+                   class="bg-white text-blue-700 px-8 py-4 rounded-xl
+                          font-semibold text-lg hover:bg-gray-100">
+                    Upload MRI
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('login') }}"
+                   class="bg-white text-blue-700 px-8 py-4 rounded-xl
+                          font-semibold text-lg hover:bg-gray-100">
+                    Get Started
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+    <section class="max-w-7xl mx-auto px-6 py-16">
+
+        <h2 class="text-3xl font-bold text-center mb-12">
+            Project Features
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- Prediction -->
+            <div class="bg-white p-8 rounded-2xl shadow">
+
+                <div class="text-4xl mb-4">
+                    🧠
+                </div>
+
+                <h3 class="text-xl font-bold mb-3">
+                    MRI Classification
+                </h3>
+
+                <p class="text-gray-600">
+                    Upload a brain MRI image and obtain an
+                    AI-generated classification.
+                </p>
+
+            </div>
+
+
+            <!-- GradCAM -->
+            <div class="bg-white p-8 rounded-2xl shadow">
+
+                <div class="text-4xl mb-4">
+                    🔍
+                </div>
+
+                <h3 class="text-xl font-bold mb-3">
+                    Grad-CAM Visualization
+                </h3>
+
+                <p class="text-gray-600">
+                    View a visualization showing image regions
+                    that contributed to the model's prediction.
+                </p>
+
+            </div>
+
+
+            <!-- AI -->
+            <div class="bg-white p-8 rounded-2xl shadow">
+
+                <div class="text-4xl mb-4">
+                    🤖
+                </div>
+
+                <h3 class="text-xl font-bold mb-3">
+                    AI Report Assistant
+                </h3>
+
+                <p class="text-gray-600">
+                    Ask questions about an AI-generated report
+                    and receive a simple educational explanation.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Disclaimer -->
+    <section class="max-w-4xl mx-auto px-6 pb-16">
+
+        <div class="bg-yellow-50 border border-yellow-300
+                    rounded-xl p-6">
+
+            <h3 class="font-bold text-yellow-800 mb-2">
+                Important Notice
+            </h3>
+
+            <p class="text-yellow-900">
+                This project is intended for educational and
+                research purposes. AI predictions are not a
+                medical diagnosis. Medical imaging should be
+                interpreted by a qualified healthcare professional.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+
+        <div class="max-w-7xl mx-auto px-6 py-8 text-center">
+
+            <p>
+                © 2026 BrainScan AI
+            </p>
+
+            <p class="text-gray-400 text-sm mt-2">
+                Educational AI-based brain MRI analysis system
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

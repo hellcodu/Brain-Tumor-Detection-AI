@@ -1,0 +1,14 @@
+Flask
+Flask-SQLAlchemy
+tensorflow
+numpy
+opencv-python
+Pillow
+reportlab
+openai
+python-dotenv
+Werkzeug
+
+
+
+# tensorflow pillow numpy matplotlib scikit-learn

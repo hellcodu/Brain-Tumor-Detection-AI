@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-slate-50 text-slate-800">
+
+
+<!-- NAVBAR -->
+
+<nav class="bg-white shadow-sm">
+
+    <div class="max-w-7xl mx-auto px-6 py-4
+                flex justify-between items-center">
+
+        <a href="home.html"
+           class="text-2xl font-bold text-blue-600">
+
+            🧠 BrainScan AI
+
+        </a>
+
+
+        <div class="hidden md:flex gap-7">
+
+            <a href="home.html">
+                Home
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="upload.html">
+                Detection
+            </a>
+
+            <a href="ai_assistant.html">
+                AI Assistant
+            </a>
+
+            <a href="contact.html"
+               class="text-blue-600 font-semibold">
+
+                Contact
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="bg-gradient-to-r
+                from-blue-700 to-teal-600
+                text-white">
+
+    <div class="max-w-7xl mx-auto px-6 py-20">
+
+        <p class="text-blue-100 font-semibold">
+            GET IN TOUCH
+        </p>
+
+        <h1 class="text-4xl md:text-5xl font-bold mt-2">
+            Contact BrainScan AI
+        </h1>
+
+        <p class="text-blue-100 text-lg mt-5 max-w-2xl">
+            Have questions about the project, AI model or
+            platform? Send us a message.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<main class="max-w-6xl mx-auto px-6 py-16">
+
+
+    <div class="grid lg:grid-cols-2 gap-8">
+
+
+        <!-- INFORMATION -->
+
+        <div>
+
+            <h2 class="text-3xl font-bold">
+                Let's Talk
+            </h2>
+
+            <p class="text-slate-500 mt-4 leading-7">
+
+                Contact us for questions about BrainScan AI,
+                project demonstrations, technical information
+                or collaboration.
+
+            </p>
+
+
+            <div class="space-y-5 mt-8">
+
+
+                <div class="flex gap-4">
+
+                    <div class="w-12 h-12 bg-blue-100
+                                rounded-xl flex items-center
+                                justify-center text-xl">
+
+                        📧
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            Email
+                        </h3>
+
+                        <p class="text-slate-500">
+                            support@brainscan-ai.example
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex gap-4">
+
+                    <div class="w-12 h-12 bg-blue-100
+                                rounded-xl flex items-center
+                                justify-center text-xl">
+
+                        📍
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            Location
+                        </h3>
+
+                        <p class="text-slate-500">
+                            India
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex gap-4">
+
+                    <div class="w-12 h-12 bg-blue-100
+                                rounded-xl flex items-center
+                                justify-center text-xl">
+
+                        💬
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="font-bold">
+                            AI Assistant
+                        </h3>
+
+                        <p class="text-slate-500">
+                            Available inside the platform
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <div class="bg-white border rounded-2xl
+                    shadow-sm p-8">
+
+            <h2 class="text-2xl font-bold">
+                Send a Message
+            </h2>
+
+
+            <form action="/contact"
+                  method="POST"
+                  class="space-y-5 mt-7">
+
+
+                <div>
+
+                    <label class="font-medium">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        class="w-full mt-2 border
+                               rounded-xl px-4 py-3
+                               outline-none
+                               focus:ring-2
+                               focus:ring-blue-500">
+
+                </div>
+
+
+                <div>
+
+                    <label class="font-medium">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        class="w-full mt-2 border
+                               rounded-xl px-4 py-3
+                               outline-none
+                               focus:ring-2
+                               focus:ring-blue-500">
+
+                </div>
+
+
+                <div>
+
+                    <label class="font-medium">
+                        Subject
+                    </label>
+
+                    <input
+                        type="text"
+                        name="subject"
+                        required
+                        class="w-full mt-2 border
+                               rounded-xl px-4 py-3
+                               outline-none
+                               focus:ring-2
+                               focus:ring-blue-500">
+
+                </div>
+
+
+                <div>
+
+                    <label class="font-medium">
+                        Message
+                    </label>
+
+                    <textarea
+                        name="message"
+                        rows="6"
+                        required
+                        class="w-full mt-2 border
+                               rounded-xl px-4 py-3
+                               outline-none
+                               focus:ring-2
+                               focus:ring-blue-500"></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600
+                           text-white py-3 rounded-xl
+                           font-semibold
+                           hover:bg-blue-700">
+
+                    Send Message
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- FAQ -->
+
+    <section class="mt-16">
+
+        <h2 class="text-3xl font-bold text-center">
+            Frequently Asked Questions
+        </h2>
+
+
+        <div class="max-w-3xl mx-auto mt-8 space-y-4">
+
+
+            <details class="bg-white border
+                            rounded-xl p-5">
+
+                <summary class="font-semibold cursor-pointer">
+                    Is BrainScan AI a medical diagnosis system?
+                </summary>
+
+                <p class="text-slate-500 mt-3 text-sm leading-6">
+
+                    No. BrainScan AI is an AI-assisted educational
+                    and decision-support project. Medical decisions
+                    should be made by qualified healthcare professionals.
+
+                </p>
+
+            </details>
+
+
+            <details class="bg-white border
+                            rounded-xl p-5">
+
+                <summary class="font-semibold cursor-pointer">
+                    What AI model does it use?
+                </summary>
+
+                <p class="text-slate-500 mt-3 text-sm leading-6">
+
+                    The planned primary model is ResNet50 using
+                    transfer learning for MRI image classification.
+
+                </p>
+
+            </details>
+
+
+            <details class="bg-white border
+                            rounded-xl p-5">
+
+                <summary class="font-semibold cursor-pointer">
+                    What is Grad-CAM?
+                </summary>
+
+                <p class="text-slate-500 mt-3 text-sm leading-6">
+
+                    Grad-CAM is an explainability technique that
+                    visualizes image regions that contributed to a
+                    neural network's prediction.
+
+                </p>
+
+            </details>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="bg-slate-900 text-white
+               text-center py-7">
+
+    © 2026 BrainScan AI
+
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="min-h-screen bg-gradient-to-br
+             from-blue-50 to-indigo-100
+             flex items-center justify-center p-6">
+
+
+<div class="bg-white shadow-xl rounded-2xl
+            w-full max-w-2xl p-8">
+
+
+    <!-- HEADER -->
+
+    <div class="text-center mb-8">
+
+        <div class="text-5xl">
+            🧠
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-800 mt-3">
+            Create Your Account
+        </h1>
+
+        <p class="text-gray-500 mt-2">
+            Join BrainScan AI
+        </p>
+
+    </div>
+
+
+    <!-- ERROR MESSAGE -->
+
+    {% if error %}
+
+    <div class="mb-6 bg-red-50 border border-red-200
+                text-red-700 rounded-xl p-4 text-sm">
+
+        {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- REGISTER FORM -->
+
+    <form action="{{ url_for('register') }}"
+          method="POST"
+          class="grid md:grid-cols-2 gap-5">
+
+
+        <!-- FULL NAME -->
+
+        <div class="md:col-span-2">
+
+            <label class="font-medium text-gray-700">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                name="name"
+                required
+                placeholder="Enter your full name"
+
+                class="w-full mt-2 px-4 py-3
+                       border border-gray-300
+                       rounded-xl
+                       focus:ring-2
+                       focus:ring-blue-500
+                       outline-none">
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="md:col-span-2">
+
+            <label class="font-medium text-gray-700">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                name="email"
+                required
+                placeholder="you@example.com"
+
+                class="w-full mt-2 px-4 py-3
+                       border border-gray-300
+                       rounded-xl
+                       focus:ring-2
+                       focus:ring-blue-500
+                       outline-none">
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div>
+
+            <label class="font-medium text-gray-700">
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                required
+                minlength="8"
+                placeholder="Create password"
+
+                class="w-full mt-2 px-4 py-3
+                       border border-gray-300
+                       rounded-xl
+                       focus:ring-2
+                       focus:ring-blue-500
+                       outline-none">
+
+        </div>
+
+
+        <!-- CONFIRM PASSWORD -->
+
+        <div>
+
+            <label class="font-medium text-gray-700">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                required
+                minlength="8"
+                placeholder="Confirm password"
+
+                class="w-full mt-2 px-4 py-3
+                       border border-gray-300
+                       rounded-xl
+                       focus:ring-2
+                       focus:ring-blue-500
+                       outline-none">
+
+        </div>
+
+
+        <!-- ACCOUNT TYPE -->
+
+        <div class="md:col-span-2">
+
+            <label class="font-medium text-gray-700">
+                Account Type
+            </label>
+
+            <select
+                name="role"
+                class="w-full mt-2 px-4 py-3
+                       border border-gray-300
+                       rounded-xl bg-white
+                       focus:ring-2
+                       focus:ring-blue-500">
+
+                <option value="patient">
+                    Patient
+                </option>
+
+                <option value="doctor">
+                    Doctor
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- TERMS -->
+
+        <div class="md:col-span-2 flex gap-3 items-start">
+
+            <input
+                type="checkbox"
+                name="terms"
+                required
+                class="mt-1 w-4 h-4">
+
+            <p class="text-sm text-gray-500">
+
+                I understand that BrainScan AI provides
+                AI-assisted analysis and does not replace
+                professional medical diagnosis.
+
+            </p>
+
+        </div>
+
+
+        <!-- CREATE ACCOUNT BUTTON -->
+
+        <button
+            type="submit"
+
+            class="md:col-span-2
+                   bg-blue-600
+                   text-white
+                   py-3
+                   rounded-xl
+                   font-semibold
+                   hover:bg-blue-700
+                   transition
+                   shadow-md">
+
+            Create Account
+
+        </button>
+
+    </form>
+
+
+    <!-- LOGIN LINK -->
+
+    <p class="text-center text-sm text-gray-500 mt-7">
+
+        Already have an account?
+
+        <a href="{{ url_for('login') }}"
+           class="text-blue-600 font-semibold hover:underline">
+
+            Login
+
+        </a>
+
+    </p>
+
+
+    <!-- DISCLAIMER -->
+
+    <div class="bg-amber-50 border border-amber-200
+                rounded-xl p-4 mt-6">
+
+        <p class="text-xs leading-relaxed text-amber-700">
+
+            <strong>Important:</strong>
+            This system is intended for educational and
+            research purposes. AI results should not be
+            considered a medical diagnosis.
+
+        </p>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

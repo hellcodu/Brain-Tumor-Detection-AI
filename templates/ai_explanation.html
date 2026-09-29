@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Report Explanation</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-slate-100">
+
+
+<header class="bg-white border-b">
+
+    <div class="max-w-6xl mx-auto px-6 py-4">
+
+        <a href="/"
+           class="text-2xl font-bold text-blue-600">
+
+            🧠 BrainScan AI
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="max-w-4xl mx-auto px-6 py-10">
+
+
+    <div class="bg-white rounded-2xl
+                border p-8">
+
+        <p class="text-blue-600 font-semibold">
+
+            AI REPORT EXPLANATION
+
+        </p>
+
+
+        <h1 class="text-3xl font-bold mt-2">
+
+            Understanding Your Result
+
+        </h1>
+
+
+        <div class="bg-blue-50
+                    rounded-xl p-6 mt-8">
+
+            <h2 class="font-bold text-xl">
+
+                Prediction
+
+            </h2>
+
+
+            <p class="text-3xl
+                      text-blue-600
+                      font-bold mt-3">
+
+                {{ report.prediction }}
+
+            </p>
+
+
+            <p class="mt-3">
+
+                Confidence:
+
+                <strong>
+                    {{ "%.2f"|format(
+                        report.confidence
+                    ) }}%
+                </strong>
+
+            </p>
+
+        </div>
+
+
+        <div class="mt-8">
+
+            <h2 class="text-xl font-bold">
+
+                🤖 AI Explanation
+
+            </h2>
+
+
+            <div class="bg-slate-50
+                        border rounded-xl
+                        p-6 mt-4
+                        whitespace-pre-line">
+
+                {{ explanation }}
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="/ai-assistant"
+            class="block text-center
+                   bg-blue-600 text-white
+                   rounded-xl py-3 mt-8
+                   font-semibold">
+
+            💬 Chat With AI
+
+        </a>
+
+
+        <div class="bg-amber-50
+                    border border-amber-200
+                    rounded-xl p-5 mt-8">
+
+            <p class="text-sm text-amber-700">
+
+                ⚠️ This explanation is generated
+                for educational purposes and does
+                not replace professional medical
+                evaluation.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

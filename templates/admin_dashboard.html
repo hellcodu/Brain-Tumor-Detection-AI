@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-slate-100 text-slate-800">
+
+
+<header class="bg-slate-900 text-white">
+
+    <div class="max-w-7xl mx-auto px-6 py-4
+                flex justify-between items-center">
+
+        <a href="home.html"
+           class="text-xl font-bold">
+
+            🧠 BrainScan AI
+            <span class="text-blue-400">
+                Admin
+            </span>
+
+        </a>
+
+
+        <a href="/logout"
+           class="text-red-300">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+
+
+    <!-- HEADER -->
+
+    <div>
+
+        <p class="text-blue-600 font-semibold">
+            ADMINISTRATION
+        </p>
+
+        <h1 class="text-3xl font-bold mt-1">
+            System Dashboard
+        </h1>
+
+        <p class="text-slate-500 mt-2">
+            Manage users, models, datasets and system activity.
+        </p>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="grid sm:grid-cols-2
+                lg:grid-cols-4 gap-5 mt-8">
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500 text-sm">
+                Total Users
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_users or 0 }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500 text-sm">
+                Doctors
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_doctors or 0 }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500 text-sm">
+                MRI Scans
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_scans or 0 }}
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border rounded-2xl p-6">
+
+            <p class="text-slate-500 text-sm">
+                AI Queries
+            </p>
+
+            <p class="text-3xl font-bold mt-2">
+                {{ total_ai_queries or 0 }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADMIN TOOLS -->
+
+    <section class="mt-10">
+
+        <h2 class="text-xl font-bold">
+            Management
+        </h2>
+
+
+        <div class="grid md:grid-cols-3 gap-5 mt-5">
+
+
+            <a href="#"
+               class="bg-white border rounded-2xl p-6
+                      hover:border-blue-500">
+
+                <div class="text-4xl">
+                    👥
+                </div>
+
+                <h3 class="font-bold text-lg mt-4">
+                    User Management
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2">
+                    Manage patients and accounts.
+                </p>
+
+            </a>
+
+
+            <a href="model_training.html"
+               class="bg-white border rounded-2xl p-6
+                      hover:border-blue-500">
+
+                <div class="text-4xl">
+                    🧠
+                </div>
+
+                <h3 class="font-bold text-lg mt-4">
+                    Model Training
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2">
+                    Train and evaluate AI models.
+                </p>
+
+            </a>
+
+
+            <a href="analytics.html"
+               class="bg-white border rounded-2xl p-6
+                      hover:border-blue-500">
+
+                <div class="text-4xl">
+                    📊
+                </div>
+
+                <h3 class="font-bold text-lg mt-4">
+                    Analytics
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2">
+                    View system statistics.
+                </p>
+
+            </a>
+
+
+            <a href="reports.html"
+               class="bg-white border rounded-2xl p-6
+                      hover:border-blue-500">
+
+                <div class="text-4xl">
+                    📄
+                </div>
+
+                <h3 class="font-bold text-lg mt-4">
+                    Reports
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2">
+                    Manage generated reports.
+                </p>
+
+            </a>
+
+
+            <a href="#"
+               class="bg-white border rounded-2xl p-6
+                      hover:border-blue-500">
+
+                <div class="text-4xl">
+                    🔐
+                </div>
+
+                <h3 class="font-bold text-lg mt-4">
+                    Security
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2">
+                    Review system security settings.
+                </p>
+
+            </a>
+
+
+            <a href="#"
+               class="bg-white border rounded-2xl p-6
+                      hover:border-blue-500">
+
+                <div class="text-4xl">
+                    📋
+                </div>
+
+                <h3 class="font-bold text-lg mt-4">
+                    Activity Logs
+                </h3>
+
+                <p class="text-sm text-slate-500 mt-2">
+                    Monitor application activity.
+                </p>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- SYSTEM STATUS -->
+
+    <section class="bg-white border rounded-2xl
+                    p-7 mt-10">
+
+        <h2 class="text-xl font-bold">
+            System Status
+        </h2>
+
+
+        <div class="grid md:grid-cols-4 gap-5 mt-6">
+
+
+            <div class="bg-green-50 p-5 rounded-xl">
+
+                <p class="text-sm text-slate-500">
+                    Web Server
+                </p>
+
+                <p class="font-bold text-green-600 mt-2">
+                    ● Online
+                </p>
+
+            </div>
+
+
+            <div class="bg-green-50 p-5 rounded-xl">
+
+                <p class="text-sm text-slate-500">
+                    Database
+                </p>
+
+                <p class="font-bold text-green-600 mt-2">
+                    ● Connected
+                </p>
+
+            </div>
+
+
+            <div class="bg-green-50 p-5 rounded-xl">
+
+                <p class="text-sm text-slate-500">
+                    AI Model
+                </p>
+
+                <p class="font-bold text-green-600 mt-2">
+                    ● Ready
+                </p>
+
+            </div>
+
+
+            <div class="bg-green-50 p-5 rounded-xl">
+
+                <p class="text-sm text-slate-500">
+                    AI Assistant
+                </p>
+
+                <p class="font-bold text-green-600 mt-2">
+                    ● Available
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WARNING -->
+
+    <div class="bg-amber-50 border border-amber-200
+                rounded-2xl p-5 mt-8">
+
+        <p class="text-sm text-amber-700">
+
+            ⚠️ Only authorized administrators should access
+            model training, user management and system settings.
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

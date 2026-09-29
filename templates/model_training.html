@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Model Training | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body class="bg-slate-100">
+
+
+<!-- NAVBAR -->
+
+<header class="bg-white border-b">
+
+    <div class="max-w-7xl mx-auto
+                px-5 py-4
+                flex items-center
+                justify-between">
+
+        <a href="/"
+           class="text-2xl font-bold
+                  text-blue-600">
+
+            🧠 BrainScan AI
+
+        </a>
+
+
+        <a href="/dashboard"
+           class="text-slate-600
+                  hover:text-blue-600">
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="max-w-7xl mx-auto
+             px-5 py-8">
+
+
+    <!-- TITLE -->
+
+    <div class="mb-8">
+
+        <p class="text-blue-600
+                  font-semibold">
+
+            AI MODEL MANAGEMENT
+
+        </p>
+
+
+        <h1 class="text-3xl md:text-4xl
+                   font-bold mt-2">
+
+            Model Training Dashboard
+
+        </h1>
+
+
+        <p class="text-slate-500 mt-2">
+
+            Monitor the MobileNetV2
+            brain tumor classification model.
+
+        </p>
+
+    </div>
+
+
+    <!-- MODEL STATUS -->
+
+    <div class="grid sm:grid-cols-2
+                lg:grid-cols-4
+                gap-5">
+
+
+        <div class="bg-white border
+                    rounded-2xl p-5">
+
+            <p class="text-sm
+                      text-slate-500">
+
+                Model
+
+            </p>
+
+            <h2 class="text-xl
+                       font-bold mt-2">
+
+                MobileNetV2
+
+            </h2>
+
+        </div>
+
+
+        <div class="bg-white border
+                    rounded-2xl p-5">
+
+            <p class="text-sm
+                      text-slate-500">
+
+                Input Size
+
+            </p>
+
+            <h2 class="text-xl
+                       font-bold mt-2">
+
+                224 × 224
+
+            </h2>
+
+        </div>
+
+
+        <div class="bg-white border
+                    rounded-2xl p-5">
+
+            <p class="text-sm
+                      text-slate-500">
+
+                Classes
+
+            </p>
+
+            <h2 class="text-xl
+                       font-bold mt-2">
+
+                4
+
+            </h2>
+
+        </div>
+
+
+        <div class="bg-white border
+                    rounded-2xl p-5">
+
+            <p class="text-sm
+                      text-slate-500">
+
+                Status
+
+            </p>
+
+
+            {% if model_exists %}
+
+            <h2 class="text-xl
+                       font-bold
+                       text-green-600 mt-2">
+
+                ● Trained
+
+            </h2>
+
+            {% else %}
+
+            <h2 class="text-xl
+                       font-bold
+                       text-red-600 mt-2">
+
+                ● Not Found
+
+            </h2>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    {% if history %}
+
+
+    <!-- PERFORMANCE -->
+
+    <div class="grid md:grid-cols-3
+                gap-5 mt-8">
+
+
+        <div class="bg-white border
+                    rounded-2xl p-6">
+
+            <p class="text-slate-500">
+
+                Final Training Accuracy
+
+            </p>
+
+
+            <p class="text-4xl
+                      font-bold
+                      text-blue-600 mt-3">
+
+                {{
+                    "%.2f"|format(
+                        history.accuracy[-1] * 100
+                    )
+                }}%
+
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border
+                    rounded-2xl p-6">
+
+            <p class="text-slate-500">
+
+                Final Validation Accuracy
+
+            </p>
+
+
+            <p class="text-4xl
+                      font-bold
+                      text-green-600 mt-3">
+
+                {{
+                    "%.2f"|format(
+                        history.val_accuracy[-1] * 100
+                    )
+                }}%
+
+            </p>
+
+        </div>
+
+
+        <div class="bg-white border
+                    rounded-2xl p-6">
+
+            <p class="text-slate-500">
+
+                Epochs
+
+            </p>
+
+
+            <p class="text-4xl
+                      font-bold mt-3">
+
+                {{ history.epochs }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- DATASET -->
+
+    <div class="bg-white border
+                rounded-2xl p-6 mt-8">
+
+        <h2 class="text-xl
+                   font-bold">
+
+            Dataset Information
+
+        </h2>
+
+
+        <div class="grid sm:grid-cols-2
+                    lg:grid-cols-4
+                    gap-4 mt-5">
+
+
+            <div class="bg-slate-50
+                        rounded-xl p-4">
+
+                <p class="text-sm
+                          text-slate-500">
+
+                    Training Images
+
+                </p>
+
+                <p class="text-2xl
+                          font-bold mt-1">
+
+                    {{ history.train_images }}
+
+                </p>
+
+            </div>
+
+
+            <div class="bg-slate-50
+                        rounded-xl p-4">
+
+                <p class="text-sm
+                          text-slate-500">
+
+                    Validation Images
+
+                </p>
+
+                <p class="text-2xl
+                          font-bold mt-1">
+
+                    {{ history.validation_images }}
+
+                </p>
+
+            </div>
+
+
+            <div class="bg-slate-50
+                        rounded-xl p-4">
+
+                <p class="text-sm
+                          text-slate-500">
+
+                    Image Size
+
+                </p>
+
+                <p class="text-2xl
+                          font-bold mt-1">
+
+                    224×224
+
+                </p>
+
+            </div>
+
+
+            <div class="bg-slate-50
+                        rounded-xl p-4">
+
+                <p class="text-sm
+                          text-slate-500">
+
+                    Batch Size
+
+                </p>
+
+                <p class="text-2xl
+                          font-bold mt-1">
+
+                    8
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CLASSES -->
+
+    <div class="bg-white border
+                rounded-2xl p-6 mt-8">
+
+        <h2 class="text-xl
+                   font-bold">
+
+            Tumor Classes
+
+        </h2>
+
+
+        <div class="grid sm:grid-cols-2
+                    lg:grid-cols-4
+                    gap-4 mt-5">
+
+
+            {% for class_name, index
+               in history.classes.items() %}
+
+            <div class="border
+                        rounded-xl p-4">
+
+                <p class="text-sm
+                          text-slate-500">
+
+                    Class {{ index }}
+
+                </p>
+
+                <p class="font-bold
+                          text-lg mt-1">
+
+                    {{ class_name
+                       |replace("_", " ")
+                       |title }}
+
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCURACY CHART -->
+
+    <div class="bg-white border
+                rounded-2xl p-6 mt-8">
+
+        <h2 class="text-xl
+                   font-bold mb-5">
+
+            Accuracy
+
+        </h2>
+
+
+        <div class="h-80">
+
+            <canvas id="accuracyChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOSS CHART -->
+
+    <div class="bg-white border
+                rounded-2xl p-6 mt-8">
+
+        <h2 class="text-xl
+                   font-bold mb-5">
+
+            Loss
+
+        </h2>
+
+
+        <div class="h-80">
+
+            <canvas id="lossChart"></canvas>
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- NO TRAINING -->
+
+    <div class="bg-white border
+                rounded-2xl p-10
+                text-center mt-8">
+
+        <div class="text-5xl">
+
+            🧠
+
+        </div>
+
+
+        <h2 class="text-2xl
+                   font-bold mt-4">
+
+            Model Not Trained Yet
+
+        </h2>
+
+
+        <p class="text-slate-500 mt-2">
+
+            Run train_model.py to train
+            the MobileNetV2 model.
+
+        </p>
+
+
+        <code class="inline-block
+                     bg-slate-100
+                     px-4 py-2
+                     rounded-lg mt-5">
+
+            python train_model.py
+
+        </code>
+
+    </div>
+
+
+    {% endif %}
+
+</main>
+
+
+{% if history %}
+
+<script>
+
+const epochs = Array.from(
+    {
+        length: {{ history.epochs }}
+    },
+    (_, i) => i + 1
+);
+
+
+// ==========================================
+// ACCURACY
+// ==========================================
+
+new Chart(
+
+    document.getElementById(
+        "accuracyChart"
+    ),
+
+    {
+
+        type: "line",
+
+        data: {
+
+            labels: epochs,
+
+            datasets: [
+
+                {
+
+                    label:
+                        "Training Accuracy",
+
+                    data: [
+                        {% for value
+                           in history.accuracy %}
+
+                        {{ value * 100 }},
+
+                        {% endfor %}
+                    ],
+
+                    tension: 0.3
+
+                },
+
+
+                {
+
+                    label:
+                        "Validation Accuracy",
+
+                    data: [
+                        {% for value
+                           in history.val_accuracy %}
+
+                        {{ value * 100 }},
+
+                        {% endfor %}
+                    ],
+
+                    tension: 0.3
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            scales: {
+
+                y: {
+
+                    min: 0,
+
+                    max: 100,
+
+                    title: {
+
+                        display: true,
+
+                        text: "Accuracy (%)"
+
+                    }
+
+                },
+
+                x: {
+
+                    title: {
+
+                        display: true,
+
+                        text: "Epoch"
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+);
+
+
+// ==========================================
+// LOSS
+// ==========================================
+
+new Chart(
+
+    document.getElementById(
+        "lossChart"
+    ),
+
+    {
+
+        type: "line",
+
+        data: {
+
+            labels: epochs,
+
+            datasets: [
+
+                {
+
+                    label:
+                        "Training Loss",
+
+                    data: [
+                        {% for value
+                           in history.loss %}
+
+                        {{ value }},
+
+                        {% endfor %}
+                    ],
+
+                    tension: 0.3
+
+                },
+
+
+                {
+
+                    label:
+                        "Validation Loss",
+
+                    data: [
+                        {% for value
+                           in history.val_loss %}
+
+                        {{ value }},
+
+                        {% endfor %}
+                    ],
+
+                    tension: 0.3
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    }
+
+);
+
+</script>
+
+{% endif %}
+
+</body>
+
+</html>

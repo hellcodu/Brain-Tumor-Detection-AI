@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reports | BrainScan AI</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+
+<body class="bg-slate-100 text-slate-800">
+
+
+<header class="bg-white border-b">
+
+    <div class="max-w-7xl mx-auto px-6 py-4
+                flex justify-between items-center">
+
+        <a href="home.html"
+           class="text-2xl font-bold text-blue-600">
+
+            🧠 BrainScan AI
+
+        </a>
+
+        <a href="patient_dashboard.html"
+           class="text-blue-600">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+
+
+    <div class="flex flex-col md:flex-row
+                justify-between md:items-center gap-4">
+
+        <div>
+
+            <p class="text-blue-600 font-semibold">
+                REPORTS
+            </p>
+
+            <h1 class="text-3xl font-bold mt-1">
+                MRI Analysis Reports
+            </h1>
+
+            <p class="text-slate-500 mt-2">
+                View and download AI-generated reports.
+            </p>
+
+        </div>
+
+
+        <a href="upload.html"
+           class="bg-blue-600 text-white
+                  px-6 py-3 rounded-xl font-semibold">
+
+            + New Scan
+
+        </a>
+
+    </div>
+
+
+    <!-- REPORT TABLE -->
+
+    <section class="bg-white border rounded-2xl
+                    overflow-hidden mt-8">
+
+
+        <div class="p-6 border-b">
+
+            <div class="flex flex-col md:flex-row gap-4">
+
+                <input
+                    type="search"
+                    placeholder="Search reports..."
+                    class="flex-1 border rounded-xl
+                           px-4 py-3">
+
+                <select
+                    class="border rounded-xl px-4 py-3">
+
+                    <option>
+                        All Results
+                    </option>
+
+                    <option>
+                        Glioma
+                    </option>
+
+                    <option>
+                        Meningioma
+                    </option>
+
+                    <option>
+                        Pituitary
+                    </option>
+
+                    <option>
+                        No Tumor
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left">
+
+
+                <thead class="bg-slate-50">
+
+                    <tr>
+
+                        <th class="px-6 py-4">
+                            Report ID
+                        </th>
+
+                        <th class="px-6 py-4">
+                            Date
+                        </th>
+
+                        <th class="px-6 py-4">
+                            Prediction
+                        </th>
+
+                        <th class="px-6 py-4">
+                            Confidence
+                        </th>
+
+                        <th class="px-6 py-4">
+                            Status
+                        </th>
+
+                        <th class="px-6 py-4">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for report in reports %}
+
+                    <tr class="border-t">
+
+                        <td class="px-6 py-4 font-medium">
+                            #{{ report.id }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ report.date }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ report.prediction }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ report.confidence }}%
+                        </td>
+
+                        <td class="px-6 py-4">
+
+                            <span class="bg-green-100
+                                         text-green-700
+                                         px-3 py-1
+                                         rounded-full text-xs">
+
+                                Completed
+
+                            </span>
+
+                        </td>
+
+                        <td class="px-6 py-4">
+
+                            <a href="/report/{{ report.id }}"
+                               class="text-blue-600 mr-4">
+
+                                View
+
+                            </a>
+
+                            <a href="/report/{{ report.id }}/download"
+                               class="text-slate-700">
+
+                                Download
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="px-6 py-16 text-center
+                                   text-slate-500">
+
+                            <div class="text-5xl">
+                                📄
+                            </div>
+
+                            <p class="mt-4">
+                                No reports available.
+                            </p>
+
+                            <a href="upload.html"
+                               class="inline-block
+                                      bg-blue-600 text-white
+                                      px-5 py-2
+                                      rounded-lg mt-5">
+
+                                Create First Report
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- REPORT CONTENT -->
+
+    <section class="bg-white border rounded-2xl
+                    p-7 mt-8">
+
+        <div class="flex items-center gap-4">
+
+            <div class="w-12 h-12 bg-blue-100
+                        rounded-xl flex items-center
+                        justify-center text-2xl">
+
+                📄
+
+            </div>
+
+            <div>
+
+                <h2 class="text-xl font-bold">
+                    What's included?
+                </h2>
+
+                <p class="text-slate-500 text-sm">
+                    Each generated report can contain:
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid sm:grid-cols-2
+                    lg:grid-cols-4 gap-4 mt-6">
+
+
+            <div class="bg-slate-50 p-5 rounded-xl">
+                🧠 MRI Image
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-xl">
+                🔥 Grad-CAM
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-xl">
+                📊 Confidence
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-xl">
+                🤖 AI Explanation
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="bg-amber-50 border border-amber-200
+                rounded-2xl p-5 mt-8">
+
+        <p class="text-sm text-amber-700">
+
+            ⚠️ AI-generated reports are intended for educational
+            and decision-support purposes. They should be reviewed
+            by an appropriately qualified healthcare professional.
+
+        </p>
+
+    </div>
+
+</main>
+
+</body>
+</html>

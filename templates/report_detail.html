@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Details | BrainScan AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        async function explainReport() {
+            const box = document.getElementById("aiExplanation");
+            box.classList.remove("hidden");
+            box.innerHTML = "🧠 AI is explaining your report...";
+
+            try {
+                const response = await fetch("/api/report/{{ report.id }}/explain", {
+                    method: "POST"
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    box.innerHTML = "Unable to generate explanation.";
+                    return;
+                }
+
+                box.innerHTML = `
+                    <h3 class="font-bold text-lg mb-2">AI Explanation</h3>
+                    <p class="whitespace-pre-line">${escapeHtml(data.explanation)}</p>
+                `;
+            } catch (error) {
+                box.innerHTML = "Something went wrong.";
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById("chatInput");
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const chat = document.getElementById("chatMessages");
+            chat.innerHTML += `
+                <div class="text-right">
+                    <span class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl">
+                        ${escapeHtml(message)}
+                    </span>
+                </div>
+            `;
+
+            input.value = "";
+
+            const loading = document.createElement("div");
+            loading.className = "bg-slate-100 px-4 py-2 rounded-xl";
+            loading.textContent = "🧠 Thinking...";
+            chat.appendChild(loading);
+
+            try {
+                const response = await fetch("/api/report/{{ report.id }}/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                loading.remove();
+
+                if (!data.success) {
+                    throw new Error(data.error);
+                }
+
+                chat.innerHTML += `
+                    <div class="text-left">
+                        <span class="inline-block bg-slate-100 px-4 py-3 rounded-xl whitespace-pre-line">
+                            ${escapeHtml(data.answer)}
+                        </span>
+                    </div>
+                `;
+
+                chat.scrollTop = chat.scrollHeight;
+            } catch (error) {
+                loading.textContent = "Unable to get an AI response.";
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</head>
+
+<body class="bg-slate-100">
+
+    <!-- NAVBAR -->
+    <header class="bg-white border-b">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+            <a href="{{ url_for('home') }}" class="text-2xl font-bold text-blue-600">
+                🧠 BrainScan AI
+            </a>
+            <a href="{{ url_for('reports') }}" class="text-slate-600 hover:text-blue-600">
+                My Reports
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-5 py-8">
+
+        <h1 class="text-3xl font-bold text-slate-800">
+            MRI Report Details
+        </h1>
+        <p class="text-slate-500 mt-2">
+            Review your brain MRI analysis.
+        </p>
+
+        <!-- REPORT GRID -->
+        <div class="grid md:grid-cols-2 gap-6 mt-8">
+
+            <!-- MRI IMAGE -->
+            <div class="bg-white rounded-2xl border p-6">
+                <h2 class="text-xl font-bold mb-4">
+                    MRI Scan
+                </h2>
+                <img 
+                    src="{{ url_for('static', filename='uploads/' + report.image) }}" 
+                    alt="MRI Scan" 
+                    class="w-full rounded-xl"
+                >
+            </div>
+
+            <!-- RESULT -->
+            <div class="bg-white rounded-2xl border p-6">
+                <h2 class="text-xl font-bold">
+                    AI Prediction
+                </h2>
+
+                <div class="mt-6">
+                    <p class="text-sm text-slate-500">Prediction</p>
+                    <p class="text-3xl font-bold text-blue-600 mt-1">
+                        {{ report.prediction }}
+                    </p>
+                </div>
+
+                <div class="mt-6">
+                    <p class="text-sm text-slate-500">Confidence</p>
+                    <p class="text-2xl font-bold mt-1">
+                        {{ "%.2f"|format(report.confidence) }}%
+                    </p>
+                </div>
+
+                <!-- AI BUTTON -->
+                <a 
+                    href="{{ url_for('explain_report_page', report_id=report.id) }}" 
+                    class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-xl mt-8 transition"
+                >
+                    🤖 Explain My Report with AI
+                </a>
+
+                <!-- PDF BUTTON -->
+                <a 
+                    href="{{ url_for('download_report', report_id=report.id) }}" 
+                    class="block w-full text-center bg-slate-800 hover:bg-slate-900 text-white font-semibold px-5 py-3 rounded-xl mt-3 transition"
+                >
+                    📄 Download PDF Report
+                </a>
+            </div>
+
+        </div>
+
+        <!-- AI CLASS PROBABILITIES -->
+        {% if probabilities %}
+        <div class="bg-white border rounded-2xl p-6 mt-6">
+            <h2 class="text-xl font-bold">
+                📊 AI Class Probabilities
+            </h2>
+
+            <div class="space-y-4 mt-5">
+                {% for name, value in probabilities.items() %}
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="font-medium text-slate-700">{{ name }}</span>
+                        <span class="text-slate-600 font-semibold">{{ "%.2f"|format(value) }}%</span>
+                    </div>
+
+                    <div class="w-full bg-slate-200 rounded-full h-3">
+                        <div 
+                            class="bg-blue-600 h-3 rounded-full transition-all duration-300" 
+                            style="width:" {{ value }} %
+                        ></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- GRAD-CAM VISUALIZATION -->
+        {% if report.gradcam %}
+        <div class="bg-white border rounded-2xl p-6 mt-6">
+            <h2 class="text-xl font-bold">
+                🔥 Grad-CAM Visualization
+            </h2>
+            <p class="text-sm text-slate-500 mt-2">
+                Highlighted regions indicate areas that contributed to the model's prediction.
+            </p>
+            <img 
+                src="{{ url_for('static', filename='results/' + report.gradcam) }}" 
+                alt="Grad-CAM Visualization"
+                class="w-full max-w-xl mx-auto rounded-xl mt-5"
+            >
+        </div>
+        {% endif %}
+
+        <!-- AI CHAT SECTION -->
+        <div class="bg-white border rounded-2xl p-6 mt-6">
+            <h2 class="text-xl font-bold">
+                💬 Ask AI About This Report
+            </h2>
+
+            <div id="chatMessages" class="space-y-3 mt-5 max-h-96 overflow-y-auto"></div>
+
+            <div class="flex gap-2 mt-5">
+                <input 
+                    id="chatInput" 
+                    type="text" 
+                    placeholder="Ask about your report..." 
+                    class="flex-1 border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                >
+                <button 
+                    onclick="sendMessage()" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-5 rounded-xl transition"
+                >
+                    Send
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
